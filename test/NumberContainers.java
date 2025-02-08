@@ -7,8 +7,9 @@ import java.util.PriorityQueue;
 class NumberContainers {
 HashMap<Integer, Integer> numbers = new HashMap<>();
 
-HashMap<Integer,HashSet <Integer>> resmap= new HashMap<>();
-PriorityQueue<Integer> pq = new PriorityQueue<>();
+HashMap<Integer,PriorityQueue<Integer> > resmap= new HashMap<>();
+//PriorityQueue<Integer> pq = new PriorityQueue<>();
+
 //堆堆堆
     public NumberContainers() {
 
@@ -17,15 +18,16 @@ PriorityQueue<Integer> pq = new PriorityQueue<>();
     public void change(int index, int number) {
 
 
-       if(!resmap.containsKey(number)&&resmap.getOrDefault(numbers.getOrDefault(index,0),new HashSet<>()).contains(index)) {
-           resmap.getOrDefault(numbers.getOrDefault(index,0),new HashSet<>()).remove(index);
+       if(!resmap.containsKey(number)&&resmap.getOrDefault(numbers.getOrDefault(index,0),new PriorityQueue<>()).contains(index)) {
+           resmap.getOrDefault(numbers.getOrDefault(index,0),new PriorityQueue<>()).remove(index);
+
 
        }
 
         numbers.put(index, number);
 
 
-          resmap.putIfAbsent(number, new HashSet<>());
+          resmap.putIfAbsent(number, new PriorityQueue<>());
           resmap.get(number).add(index);
 
        System.out.println("RESMAP="+resmap);
@@ -35,14 +37,13 @@ PriorityQueue<Integer> pq = new PriorityQueue<>();
 
     public int find(int number) {
         if(!numbers.containsValue(number)) return -1;
-        int min=99999;
-        for(int i :numbers.keySet()){
-            if(numbers.get(i) == number){
+       if( resmap.get(number).isEmpty() ){
+           int res=-1;
+       }else{int res= resmap.getOrDefault(number,new PriorityQueue<>()).poll();
+            System.out.println(res);
+            return res;}
+        return -1;
 
-                min=Math.min(i,min);}
-        }
-        System.out.println(min);
-      return min;
 
     }
 
