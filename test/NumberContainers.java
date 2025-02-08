@@ -44,6 +44,8 @@ class NumberContainers {
         System.out.println("NUMBERS=" + numbers);
     }
 
+
+
     public int find(int number) {
         // 获取数字对应的有序集合
         TreeSet<Integer> ts = resmap.get(number);
